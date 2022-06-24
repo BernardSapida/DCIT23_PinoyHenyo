@@ -5,7 +5,7 @@ public class Bagay extends Hayop {
     String[] bagaySaLoobNgBahay = { "Remote", "Telebisyon", "Kurtina", "Orasan", "Kabinet" };
 
     // Gamit sa kusina
-    String[] gamitSaKusina = { "Stainer", "Kawali", "Kalan", "Takure" };
+    String[] gamitSaKusina = { "Strainer", "Kawali", "Kalan", "Takure" };
     
     // Gamit sa paglalaro
     String[] gamitSaPaglalaro = { "Raketa", "Bola", "Sapatos", "Lamesa", "Net" };
