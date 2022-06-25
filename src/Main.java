@@ -1,12 +1,18 @@
 import java.util.concurrent.*;
 import java.util.*;
+import java.awt.*;
 
 public class Main {
-    public static ExecutorService threadPool = Executors.newFixedThreadPool(1);
-    public static TaskRunner task;
+    private static ExecutorService threadPool = Executors.newFixedThreadPool(1);
+    private static TaskRunner task;
     public static Future<?> future;
-    public static Main main = new Main();
-    public static boolean isReady = false;
+    private static Prizes prizes = new Prizes();
+    private static String player1name = "ZO";
+    private static String player2name = "JOSHUA";
+    public static int player1points = 3;
+    public static int player2points = 0;
+    public static int player1roundpoints = 0;
+    public static int player2roundpoints = 0;
 
     Main() {
         System.out.println("Welcome to Pinoy Henyo\n");
@@ -22,40 +28,53 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Scanner start = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Do you want to start (Yes/No): ");
-        String answer = start.nextLine().toLowerCase();
+        // System.out.println("\n########################################################################################\n");
+        // System.out.print("Player 1: What is your name? ");
+        // player1name = sc.nextLine().toUpperCase();
 
+        // System.out.print("Player 2: What is your name? ");
+        // player2name = sc.nextLine().toUpperCase();
+        // System.out.println("\n########################################################################################\n");
+
+        // Main.startPlayer("player1");
+        // Main.startPlayer("player2");
+        // Main.rematch();
+        prizes.displayPrizes();
         while(true) {
-            if(answer.equals("yes")) {
-                task = new TaskRunner();
-                task.currentPlayer = "player1";
-                future = threadPool.submit(task);
-                break;
-            } else if(answer.equals("no")) {
-                task.endingMessage();
-                break;
-            } else {
-                System.out.println("Your input is incorrect!\n");
-                System.out.print("Do you want to start (Yes/No): ");
-                answer = start.nextLine().toLowerCase();
-            }
-        } 
-        
-        try {
-            future.get(5, TimeUnit.SECONDS);
-        } catch (TimeoutException e) {
-            future.cancel(true);
-            task.terminateThread();
-            System.out.println("\n\n########################################################################################");
-            System.out.println("\nTimes Up! 2 minutes is over.");
-            System.out.println("Press Enter to continue...");
-        }
-    
-        System.out.println("Player 1 Score: " + task.player1Score);
+            System.out.println("\n########################################################################################\n");
+            System.out.print("Would you like to claim your rewards (Yes/No)? ");
+            String response = sc.nextLine().toLowerCase();
 
-        System.out.println("Player 2 get ready!");
+            if(response.equals("yes")) {
+                System.out.print("What is your name? ");
+                String name = sc.nextLine().toUpperCase();
+                if(name.equals(player1name.toUpperCase())) {
+                    if(player1points >= 5) {
+                        player1points = prizes.getPrize(Main.player1name, Main.player1points);
+                    } else {
+                        System.out.println("Insufficient points!");
+                    }
+                } else if(name.equals(player2name.toUpperCase())) {
+                    if(player2points >= 5) {
+                        player2points = prizes.getPrize(Main.player2name, Main.player2points);
+                    } else {
+                        System.out.println("Insufficient points!");
+                    }
+                } else {
+                    System.out.println("Your name didn't recognize!");
+                }
+            } else if(response.equals("no")) {
+                new Game().endingMessage();
+            } else {
+                System.out.println("Your input is incorrect!");
+            }
+        }
+    }
+
+    private static void countdown() throws InterruptedException {
+        System.out.println("\n########################################################################################\n");
         System.out.println("The game will start in 5...");
         Thread.sleep(1000);
         System.out.println("The game will start in 4...");
@@ -66,23 +85,117 @@ public class Main {
         Thread.sleep(1000);
         System.out.println("The game will start in 1...");
         Thread.sleep(1000);
+    }
 
-        task.player = "player2";
-        future = threadPool.submit(task);
+    private static void startPlayer(String player) throws InterruptedException, ExecutionException, AWTException {
+        Scanner start = new Scanner(System.in);
+        System.out.print("Do you want to start " + player + " (Yes/No): ");
+        String answer = start.nextLine().toLowerCase();
+
+        while(true) {
+            if(answer.equals("yes")) {
+                countdown();
+                System.out.println("\n########################################################################################");
+                System.out.println("\nThe game has been started!\n");
+                System.out.println("########################################################################################");
+                task = new TaskRunner();
+                task.player = player;
+                future = threadPool.submit(task);
+
+                break;
+            } else if(answer.equals("no")) {
+                task.endingMessage();
+                break;
+            } else {
+                System.out.println("Invalid Input!\n");
+                System.out.print("Do you want to start " + player + " (Yes/No): ");
+                answer = start.nextLine().toLowerCase();
+            }
+        } 
         
         try {
-            future.get(5, TimeUnit.SECONDS);
+            future.get(10, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             future.cancel(true);
             task.terminateThread();
-            System.out.println("\n\n########################################################################################");
-            System.out.println("\nTimes Up! 2 minutes is over.");
-            System.out.println("Press Enter to continue...");
+            System.out.println("\n\n########################################################################################\n");
+            System.out.println("Times Up! 2 minutes is over.");
+            System.out.println("\n########################################################################################\n");
         }
-    
-        System.out.println("Player 2 Score: " + task.player2Score);
-        System.out.println("\n\n########################################################################################");
-        System.out.println("Player 1 Score: " + task.player1Score);
-        System.out.println("Player 2 Score: " + task.player2Score);
+        if(player.equals("player1")) {
+            player1roundpoints = task.player1Score;
+            System.out.println(player + " Score: " + player1roundpoints);
+            System.out.println("\n########################################################################################\n");
+            player1points += task.player1Score;
+        }
+        if(player.equals("player2")) {
+            player2roundpoints = task.player2Score;
+            System.out.println(player + " Score: " + player2roundpoints);
+            System.out.println("\n########################################################################################\n");
+            player2points += task.player2Score;
+        }
+    }
+
+    private static void rematch() throws InterruptedException, ExecutionException, AWTException {
+        System.out.println("\n########################################################################################");
+        System.out.println("#   Final Score:                                                                       #");
+        System.out.println("#   (Player 1) " + player1name + " score: " + player1points + " ".repeat(64 - (String.valueOf(player1points).length() + player1name.length())) + "#");
+        System.out.println("#   (Player 2) " + player2name + " score: " + player2points + " ".repeat(64 - (String.valueOf(player2points).length() + player2name.length())) + "#");
+        System.out.println("########################################################################################");
+
+        // Tie Break
+        if(player1points == player2points) {
+            System.out.println("\n########################################################################################\n");
+            System.out.println("You are in a tie break!");
+            System.out.println("\n########################################################################################\n");
+            startPlayer("player1");
+            startPlayer("player2");
+
+            if(player1points == player2points) rematch();
+        }
+
+        // One player wins the game and opposing player wants a rematch.
+        if(player1points != player2points) {
+            Scanner rematch = new Scanner(System.in);
+
+            while(true) {
+                System.out.println("\n########################################################################################\n");
+                if(player1roundpoints > player2roundpoints) System.out.print("Would you like to rematch player 2 against player 1 (Yes/No): ");
+                else System.out.print("Would you like to rematch player 1 against player 2 (Yes/No): ");
+                String response = rematch.nextLine().toLowerCase();
+            
+                if(response.equals("yes")) {
+                    System.out.println("\n########################################################################################\n");
+                    System.out.println("Game Rematch! if lose Player wins in the current match, he/she will gain the opponents\nprize/points and if he/she would loss, Player will not gain anything. If the winner wins\nPlayer’s prize/points will be doubled and recognize as Back-to-back winner.");
+                    System.out.println("\n########################################################################################\n");
+                    startPlayer("player1");
+                    startPlayer("player2");
+
+                    if(player1roundpoints == player2roundpoints) rematch();
+                    else {
+                        if(player1roundpoints > player2roundpoints) {
+                            player1points += player1points;
+                            player1points += player2points;
+                            player2points = 0;
+                            System.out.println(player1name + " points: " + player1points);
+                            System.out.println(player2name + " points: " + player2points);
+                        } else {
+                            player2points += player2points;
+                            player2points += player1points;
+                            player1points = 0;
+                            System.out.println(player1name + " points: " + player1points);
+                            System.out.println(player2name + " points: " + player2points);
+                        }
+                    }
+                    
+                    
+                    break;
+                } else if(response.equals("no")) {
+                    task.endingMessage();
+                } else {
+                    System.out.println("Your input is incorrect!");
+                }
+            }
+        }
     }
 }

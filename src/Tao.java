@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Tao extends Bagay {
     // Parte ng katawan
-    String[] parteNgKatawan = { "Paa", "Tuhod", "Siko", "Talampakan"};
+    String[] parteNgKatawan = { "Paa", "Tuhod", "Siko", "Talampakan" };
 
     // Parte ng mukha
     String[] parteNgMukha = { "Mata", "Tenga", "Buhok", "Kilay", "Bibig", "Ilong" };

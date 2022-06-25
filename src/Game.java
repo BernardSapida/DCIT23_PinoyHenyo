@@ -1,13 +1,16 @@
 import java.util.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Game extends Tao {
-    Random randNum = new Random();
     String player;
-    int player1Score = 0;
-    int player2Score = 0;
+    int player1Score;
+    int player2Score;
+    public Scanner question = new Scanner(System.in);
 
-    public void randomCategory(String player) {
-        this.player = player;
+    public void randomCategory() {
+        Random randNum = new Random();
+
         switch(randNum.nextInt(4)) {
             case 0 -> { taoCategory(); }
             case 1 -> { bagayCategory(); }
@@ -17,16 +20,17 @@ public class Game extends Tao {
     }
 
     public void taoCategory() {
+        Random randNum = new Random();
         int chosenQuestion = randNum.nextInt(4);
-        Scanner lugarQuestion = new Scanner(System.in);
         
         switch(chosenQuestion) {
             case 0 -> {
                 String chosenWord = parteNgKatawan[randNum.nextInt(parteNgKatawan.length)];
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Parte ng katawan");
+                    System.out.println("\nCategory: Tao");
+                    System.out.println("Hint: Parte ng katawan");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -34,7 +38,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -42,9 +46,10 @@ public class Game extends Tao {
                 String chosenWord = parteNgMukha[randNum.nextInt(parteNgMukha.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Parte ng mukha");
+                    System.out.println("\nCategory: Tao");
+                    System.out.println("Hint: Parte ng mukha");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -52,7 +57,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -60,9 +65,10 @@ public class Game extends Tao {
                 String chosenWord = parteNgKamay[randNum.nextInt(parteNgKamay.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Parte ng kamay");
+                    System.out.println("\nCategory: Tao");
+                    System.out.println("Hint: Parte ng kamay");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -70,7 +76,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -78,9 +84,10 @@ public class Game extends Tao {
                 String chosenWord = pangalanNgPresidente[randNum.nextInt(pangalanNgPresidente.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Apelyido ng naging president ng Pilipinas");
+                    System.out.println("\nCategory: Tao");
+                    System.out.println("Hint: Apelyido ng naging president ng Pilipinas");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -88,7 +95,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -96,17 +103,18 @@ public class Game extends Tao {
     }
 
     public void bagayCategory() {
+        Random randNum = new Random();
         int chosenQuestion = randNum.nextInt(3);
-        Scanner lugarQuestion = new Scanner(System.in);
         
         switch(chosenQuestion) {
             case 0 -> {
                 String chosenWord = bagaySaLoobNgBahay[randNum.nextInt(bagaySaLoobNgBahay.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Nakikita sa loob ng bahay");
+                    System.out.println("\nCategory: Bagay");
+                    System.out.println("Hint: Nakikita sa loob ng bahay");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -114,7 +122,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -122,9 +130,10 @@ public class Game extends Tao {
                 String chosenWord = gamitSaKusina[randNum.nextInt(gamitSaKusina.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Gamit sa kusina");
+                    System.out.println("\nCategory: Bagay");
+                    System.out.println("Hint: Gamit sa kusina");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -132,7 +141,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -140,9 +149,10 @@ public class Game extends Tao {
                 String chosenWord = gamitSaPaglalaro[randNum.nextInt(gamitSaPaglalaro.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Ginagamit sa paglalaro");
+                    System.out.println("\nCategory: Bagay");
+                    System.out.println("Hint: Ginagamit sa paglalaro");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -150,7 +160,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -158,17 +168,18 @@ public class Game extends Tao {
     }
 
     public void hayopCategory() {
+        Random randNum = new Random();
         int chosenQuestion = randNum.nextInt(3);
-        Scanner lugarQuestion = new Scanner(System.in);
         
         switch(chosenQuestion) {
             case 0 -> {
                 String chosenWord = breedNgAso[randNum.nextInt(breedNgAso.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Breed ng aso");
+                    System.out.println("\nCategory: Hayop");
+                    System.out.println("Hint: Breed ng aso");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -176,7 +187,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -184,9 +195,10 @@ public class Game extends Tao {
                 String chosenWord = apatNaPaa[randNum.nextInt(apatNaPaa.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Ito ay may apat na paa");
+                    System.out.println("\nCategory: Hayop");
+                    System.out.println("Hint: Ito ay may apat na paa");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -194,7 +206,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -202,9 +214,10 @@ public class Game extends Tao {
                 String chosenWord = lumilipad[randNum.nextInt(lumilipad.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Ito ay lumilipad");
+                    System.out.println("\nCategory: Hayop");
+                    System.out.println("Hint: Ito ay lumilipad");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -212,7 +225,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -220,17 +233,18 @@ public class Game extends Tao {
     }
 
     public void lugarCategory() {
+        Random randNum = new Random();
         int chosenQuestion = randNum.nextInt(3);
-        Scanner lugarQuestion = new Scanner(System.in);
         
         switch(chosenQuestion) {
             case 0 -> {
                 String chosenWord = cavitePlace[randNum.nextInt(cavitePlace.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Lugar sa Cavite");
+                    System.out.println("\nCategory: Lugar");
+                    System.out.println("Hint: Lugar sa Cavite");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -238,7 +252,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -246,9 +260,10 @@ public class Game extends Tao {
                 String chosenWord = asianCountry[randNum.nextInt(asianCountry.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Asian Country");
+                    System.out.println("\nCategory: Lugar");
+                    System.out.println("Hint: Asian Country");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -256,7 +271,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -264,9 +279,10 @@ public class Game extends Tao {
                 String chosenWord = europeCountry[randNum.nextInt(europeCountry.length)];
 
                 while(!Main.future.isCancelled()) {
-                    System.out.println("\nHint: Europe Country");
+                    System.out.println("\nCategory: Lugar");
+                    System.out.println("Hint: Europe Country");
                     System.out.print("Enter Word: ");
-                    String answer = lugarQuestion.nextLine();
+                    String answer = question.nextLine();
 
                     if(chosenWord.toLowerCase().equals(answer)) {
                         System.out.println("Your answer is correct!\n");
@@ -274,7 +290,7 @@ public class Game extends Tao {
                         if(player.equals("player2")) player2Score += 5;
                         break;
                     } else if(!chosenWord.toLowerCase().equals(answer) && !Main.future.isCancelled()) {
-                        System.out.println("Your answer is incorrect!\n");
+                        System.out.println("Your answer is Incorrect!");
                     }
                 }
             }
@@ -282,7 +298,20 @@ public class Game extends Tao {
     }
 
     public void endingMessage() {
+        System.out.println("\n########################################################################################\n");
         System.out.println("Thank you for playing Pinoy Henyo!");
         System.exit(1);
+    }
+
+    public void automaticEnter() {
+        Robot robot = null;
+        
+        try {
+            robot = new Robot();
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
     }
 }
