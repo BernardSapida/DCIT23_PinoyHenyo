@@ -29,18 +29,17 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
+        System.out.println("\n########################################################################################\n");
+        System.out.print("Player 1: What is your name? ");
+        player1name = sc.nextLine().toUpperCase();
 
-        // System.out.println("\n########################################################################################\n");
-        // System.out.print("Player 1: What is your name? ");
-        // player1name = sc.nextLine().toUpperCase();
+        System.out.print("Player 2: What is your name? ");
+        player2name = sc.nextLine().toUpperCase();
+        System.out.println("\n########################################################################################\n");
 
-        // System.out.print("Player 2: What is your name? ");
-        // player2name = sc.nextLine().toUpperCase();
-        // System.out.println("\n########################################################################################\n");
-
-        // Main.startPlayer("player1");
-        // Main.startPlayer("player2");
-        // Main.rematch();
+        Main.startPlayer("player1");
+        Main.startPlayer("player2");
+        Main.rematch();
         prizes.displayPrizes();
         while(true) {
             System.out.println("\n########################################################################################\n");
