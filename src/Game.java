@@ -6,6 +6,7 @@ public class Game extends Tao {
     String player;
     int player1Score;
     int player2Score;
+    
     public Scanner question = new Scanner(System.in);
 
     public void randomCategory() {

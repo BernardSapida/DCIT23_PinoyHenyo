@@ -7,9 +7,9 @@ public class Main {
     private static TaskRunner task;
     public static Future<?> future;
     private static Prizes prizes = new Prizes();
-    private static String player1name = "ZO";
-    private static String player2name = "JOSHUA";
-    public static int player1points = 3;
+    private static String player1name = "";
+    private static String player2name = "";
+    public static int player1points = 0;
     public static int player2points = 0;
     public static int player1roundpoints = 0;
     public static int player2roundpoints = 0;
@@ -40,6 +40,7 @@ public class Main {
         Main.startPlayer("player1");
         Main.startPlayer("player2");
         Main.rematch();
+
         prizes.displayPrizes();
         while(true) {
             System.out.println("\n########################################################################################\n");
@@ -100,7 +101,6 @@ public class Main {
                 task = new TaskRunner();
                 task.player = player;
                 future = threadPool.submit(task);
-
                 break;
             } else if(answer.equals("no")) {
                 task.endingMessage();
@@ -113,7 +113,7 @@ public class Main {
         } 
         
         try {
-            future.get(10, TimeUnit.SECONDS);
+            future.get(2, TimeUnit.MINUTES);
         } catch (TimeoutException e) {
             future.cancel(true);
             task.terminateThread();
@@ -121,6 +121,7 @@ public class Main {
             System.out.println("Times Up! 2 minutes is over.");
             System.out.println("\n########################################################################################\n");
         }
+        
         if(player.equals("player1")) {
             player1roundpoints = task.player1Score;
             System.out.println(player + " Score: " + player1roundpoints);
@@ -186,7 +187,6 @@ public class Main {
                             System.out.println(player2name + " points: " + player2points);
                         }
                     }
-                    
                     
                     break;
                 } else if(response.equals("no")) {

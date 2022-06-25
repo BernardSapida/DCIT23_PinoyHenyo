@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Prizes extends Main {
-    
     // { Points needed, Number of Items Available}
     private int[] chocolate_bar = {5, 100};
     private int[] certificate = {10, 50};
